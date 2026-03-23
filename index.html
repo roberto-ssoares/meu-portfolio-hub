@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roberto Soares | Portfólio de Projetos em Dados</title>
+  <meta name="description" content="Portfólio de projetos em Ciência de Dados, Engenharia de Dados, Machine Learning, Analytics e soluções orientadas a negócio.">
+  <meta name="author" content="Roberto Soares">
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  >
+
+  <style>
+    :root {
+      --bg-main: #0b1120;
+      --bg-secondary: #111827;
+      --bg-card: #1f2937;
+      --text-main: #f8fafc;
+      --text-soft: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
+      color: var(--text-main);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .navbar {
+      background-color: rgba(11, 17, 32, 0.92) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: var(--text-main) !important;
+    }
+
+    .nav-link:hover {
+      color: var(--accent) !important;
+    }
+
+    .hero-section {
+      padding: 120px 0 80px 0;
+      background:
+        linear-gradient(rgba(11, 17, 32, 0.85), rgba(11, 17, 32, 0.95)),
+        url("assets/img/banners/hero-bg.jpg") center/cover no-repeat;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 999px;
+      color: var(--accent);
+      background-color: rgba(56, 189, 248, 0.08);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-title {
+      font-size: 2.7rem;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .hero-highlight {
+      color: var(--accent);
+    }
+
+    .hero-text {
+      color: var(--text-soft);
+      font-size: 1.08rem;
+      max-width: 760px;
+    }
+
+    .hero-actions .btn {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .section-padding {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+      color: var(--text-soft);
+      max-width: 780px;
+      margin-bottom: 40px;
+    }
+
+    .custom-card {
+      background-color: rgba(31, 41, 55, 0.88);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: var(--shadow-soft);
+      height: 100%;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .custom-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background-color: #0f172a;
+    }
+
+    .badge-tech {
+      background-color: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      margin-right: 6px;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .project-card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .project-card-text {
+      color: var(--text-soft);
+      font-size: 0.98rem;
+      margin-bottom: 18px;
+    }
+
+    .tech-box {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 24px;
+      text-align: center;
+      height: 100%;
+    }
+
+    .tech-box i {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+
+    .about-box {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .profile-image {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 1rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .contact-box {
+      background-color: rgba(31, 41, 55, 0.88);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .footer {
+      border-top: 1px solid var(--border-soft);
+      color: var(--text-muted);
+      padding: 24px 0;
+      background-color: rgba(11, 17, 32, 0.95);
+    }
+
+    .btn-outline-light:hover {
+      color: #0b1120 !important;
+    }
+
+    @media (max-width: 991.98px) {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+
+      .hero-section {
+        padding: 100px 0 70px 0;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .hero-title {
+        font-size: 1.9rem;
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+
+      .project-image {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INÍCIO: NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#inicio">Roberto Soares</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projetos">Projetos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tecnologias">Tecnologias</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- FIM: NAVBAR -->
+
+  <!-- INÍCIO: HERO -->
+  <header id="inicio" class="hero-section">
+    <div class="container">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-8">
+          <span class="hero-badge">Portfólio Estratégico em Dados</span>
+          <h1 class="hero-title mb-4">
+            Projetos de <span class="hero-highlight">Ciência de Dados</span>,
+            <span class="hero-highlight">Engenharia de Dados</span> e
+            Analytics orientados a negócio
+          </h1>
+          <p class="hero-text mb-4">
+            Sou Roberto Soares, profissional da área de dados com forte foco em projetos aplicados,
+            storytelling analítico, estruturação técnica e construção de portfólio voltado ao mercado.
+            Aqui você encontrará projetos em crédito, risco, machine learning, grafos, séries temporais,
+            pipelines de dados e estudos aplicados.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projetos-destaque" class="btn btn-info btn-lg text-dark fw-semibold">
+              Ver Projetos em Destaque
+            </a>
+            <a href="projetos.html" class="btn btn-outline-light btn-lg">
+              Explorar Catálogo Completo
+            </a>
+          </div>
+
+          <div class="mt-4">
+            <a href="https://github.com/roberto-ssoares" target="_blank" class="text-decoration-none text-light me-3">
+              <i class="bi bi-github me-1"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/roberto-dos-santos-soares/" target="_blank" class="text-decoration-none text-light me-3">
+              <i class="bi bi-linkedin me-1"></i> LinkedIn
+            </a>
+            <a href="#contato" class="text-decoration-none text-light">
+              <i class="bi bi-envelope me-1"></i> Contato
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4 text-center">
+          <img
+            src="assets/img/profile/roberto-soares.jpg"
+            alt="Foto de Roberto Soares"
+            class="img-fluid profile-image"
+          >
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- FIM: HERO -->
+
+  <!-- INÍCIO: PROJETOS EM DESTAQUE -->
+  <section id="projetos-destaque" class="section-padding">
+    <div class="container">
+      <h2 class="section-title">Projetos em Destaque</h2>
+      <p class="section-subtitle">
+        Uma seleção inicial de projetos com foco em negócio, aplicação técnica, organização analítica
+        e construção de evidências para portfólio profissional.
+      </p>
+
+      <div class="row g-4">
+
+        <!-- CARD 1 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <img
+              src="assets/img/covers/credit-risk-graph-curvature.jpg"
+              alt="Projeto Credit Risk with Graph Curvature"
+              class="project-image"
+            >
+            <div class="p-4">
+              <span class="badge rounded-pill badge-tech">Python</span>
+              <span class="badge rounded-pill badge-tech">Graph ML</span>
+              <span class="badge rounded-pill badge-tech">Credit Risk</span>
+
+              <h3 class="project-card-title mt-3">Credit Risk with Graph Curvature</h3>
+              <p class="project-card-text">
+                Projeto explorando grafos KNN e curvatura de Ricci como fonte de features geométricas
+                para enriquecer a modelagem de risco de crédito.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="projeto/credit-risk-graph-curvature.html" class="btn btn-info text-dark fw-semibold">
+                  Ver Resumo
+                </a>
+                <a href="https://github.com/roberto-ssoares/Data-Science/tree/main/credit-risk-geometric-ml" target="_blank" class="btn btn-outline-light">
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <img
+              src="assets/img/covers/podbank-credit-score.jpg"
+              alt="Projeto PodBank Credit Score"
+              class="project-image"
+            >
+            <div class="p-4">
+              <span class="badge rounded-pill badge-tech">Python</span>
+              <span class="badge rounded-pill badge-tech">Machine Learning</span>
+              <span class="badge rounded-pill badge-tech">Fintech</span>
+
+              <h3 class="project-card-title mt-3">PodBank Credit Score</h3>
+              <p class="project-card-text">
+                Projeto aplicado de score de crédito com estrutura analítica inspirada em contexto de fintech,
+                passando por preparação de dados, modelagem e interpretação.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="projeto/podbank-credit-score.html" class="btn btn-info text-dark fw-semibold">
+                  Ver Resumo
+                </a>
+                <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light">
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <img
+              src="assets/img/covers/duckdb-polars-analytics.jpg"
+              alt="Projeto DuckDB e Polars Analytics"
+              class="project-image"
+            >
+            <div class="p-4">
+              <span class="badge rounded-pill badge-tech">DuckDB</span>
+              <span class="badge rounded-pill badge-tech">Polars</span>
+              <span class="badge rounded-pill badge-tech">Analytics</span>
+
+              <h3 class="project-card-title mt-3">DuckDB + Polars Analytics</h3>
+              <p class="project-card-text">
+                Projeto voltado à análise moderna com foco em performance local, organização de dados,
+                consultas analíticas e narrativa técnica para portfólio.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="projeto/duckdb-polars-analytics.html" class="btn btn-info text-dark fw-semibold">
+                  Ver Resumo
+                </a>
+                <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light">
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-5 text-center">
+        <a href="projetos.html" class="btn btn-outline-light btn-lg">
+          Ver Todos os Projetos
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: PROJETOS EM DESTAQUE -->
+
+  <!-- INÍCIO: TECNOLOGIAS -->
+  <section id="tecnologias" class="section-padding bg-dark bg-opacity-25">
+    <div class="container">
+      <h2 class="section-title">Tecnologias e Áreas de Atuação</h2>
+      <p class="section-subtitle">
+        Meu portfólio está sendo construído com foco em competências técnicas valorizadas pelo mercado
+        de dados e conectadas a cenários reais de negócio.
+      </p>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-3">
+          <div class="tech-box">
+            <i class="bi bi-bar-chart-line"></i>
+            <h3 class="h5">Analytics</h3>
+            <p class="text-secondary-subtle mb-0">
+              Exploração de dados, métricas, indicadores, storytelling analítico e geração de insights.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+          <div class="tech-box">
+            <i class="bi bi-cpu"></i>
+            <h3 class="h5">Machine Learning</h3>
+            <p class="text-secondary-subtle mb-0">
+              Modelagem supervisionada, feature engineering, avaliação de desempenho e interpretação.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+          <div class="tech-box">
+            <i class="bi bi-diagram-3"></i>
+            <h3 class="h5">Data Engineering</h3>
+            <p class="text-secondary-subtle mb-0">
+              Pipelines de dados, camadas analíticas, organização de datasets e boas práticas de projeto.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+          <div class="tech-box">
+            <i class="bi bi-database-check"></i>
+            <h3 class="h5">Stack Técnica</h3>
+            <p class="text-secondary-subtle mb-0">
+              Python, SQL, Pandas, Polars, DuckDB, PySpark, Streamlit, Git e HTML para portfólio.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: TECNOLOGIAS -->
+
+  <!-- INÍCIO: SOBRE -->
+  <section id="sobre" class="section-padding">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-5 text-center">
+          <img
+            src="assets/img/profile/roberto-soares.jpg"
+            alt="Foto profissional de Roberto Soares"
+            class="img-fluid profile-image"
+          >
+        </div>
+
+        <div class="col-lg-7">
+          <div class="about-box">
+            <h2 class="section-title">Sobre Mim</h2>
+            <p class="text-light-emphasis">
+              Sou Roberto Soares, profissional com longa trajetória na área de dados, atualmente focado
+              em consolidar uma transição estratégica para Ciência de Dados, Engenharia de Dados e Analytics
+              aplicado. Meu objetivo com este portfólio é demonstrar evolução técnica, clareza de pensamento,
+              capacidade de execução e conexão entre dados e negócio.
+            </p>
+            <p class="text-light-emphasis">
+              Tenho dedicado meus estudos e projetos à construção de soluções com Python, SQL, Machine Learning,
+              notebooks analíticos, documentação técnica, visualização de resultados e organização profissional
+              para apresentação a recrutadores e lideranças.
+            </p>
+
+            <div class="row mt-4">
+              <div class="col-md-6 mb-3">
+                <div class="border rounded-4 p-3 h-100">
+                  <h3 class="h6 text-info">Foco atual</h3>
+                  <p class="mb-0 text-secondary-subtle">
+                    Projetos de portfólio em crédito, risco, analytics, grafos, séries temporais e pipelines modernos.
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="border rounded-4 p-3 h-100">
+                  <h3 class="h6 text-info">Objetivo</h3>
+                  <p class="mb-0 text-secondary-subtle">
+                    Demonstrar maturidade analítica e técnica por meio de projetos bem documentados e publicados.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <a href="sobre.html" class="btn btn-info text-dark fw-semibold me-2 mb-2">Ler mais</a>
+              <a href="https://www.linkedin.com/in/roberto-dos-santos-soares/" target="_blank" class="btn btn-outline-light mb-2">
+                Ver LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: SOBRE -->
+
+  <!-- INÍCIO: CONTATO -->
+  <section id="contato" class="section-padding">
+    <div class="container">
+      <div class="contact-box text-center">
+        <h2 class="section-title">Contato Profissional</h2>
+        <p class="section-subtitle mx-auto">
+          Estou construindo este portfólio como uma vitrine técnica e estratégica da minha jornada em dados.
+          Fico aberto a conexões, oportunidades, networking e conversas profissionais.
+        </p>
+
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+          <a href="https://www.linkedin.com/in/roberto-dos-santos-soares/" target="_blank" class="btn btn-info btn-lg text-dark fw-semibold">
+            <i class="bi bi-linkedin me-2"></i>LinkedIn
+          </a>
+          <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-github me-2"></i>GitHub
+          </a>
+          <a href="mailto:ssoares.roberto@gmail.com" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-envelope me-2"></i>E-mail
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: CONTATO -->
+
+  <!-- INÍCIO: FOOTER -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p class="mb-1">© 2026 Roberto Soares. Todos os direitos reservados.</p>
+      <small>Portfólio de projetos em dados construído com HTML, CSS e Bootstrap.</small>
+    </div>
+  </footer>
+  <!-- FIM: FOOTER -->
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+</body>
+</html>

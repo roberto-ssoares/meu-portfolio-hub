@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projetos | Roberto Soares</title>
+  <meta name="description" content="Catálogo de projetos e estudos técnicos de Roberto Soares em Ciência de Dados, Engenharia de Dados, Machine Learning e Analytics.">
+  <meta name="author" content="Roberto Soares">
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  >
+
+  <style>
+    :root {
+      --bg-main: #0b1120;
+      --bg-secondary: #111827;
+      --bg-card: #1f2937;
+      --text-main: #f8fafc;
+      --text-soft: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    body {
+      background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
+      color: var(--text-main);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .navbar {
+      background-color: rgba(11, 17, 32, 0.92) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: var(--text-main) !important;
+    }
+
+    .nav-link:hover {
+      color: var(--accent) !important;
+    }
+
+    .page-header {
+      padding: 120px 0 60px 0;
+      background:
+        linear-gradient(rgba(11, 17, 32, 0.90), rgba(11, 17, 32, 0.96)),
+        url("assets/img/banners/hero-bg.jpg") center/cover no-repeat;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .page-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 999px;
+      color: var(--accent);
+      background-color: rgba(56, 189, 248, 0.08);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .page-text {
+      color: var(--text-soft);
+      font-size: 1.06rem;
+      max-width: 800px;
+    }
+
+    .section-padding {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+      color: var(--text-soft);
+      max-width: 820px;
+      margin-bottom: 34px;
+    }
+
+    .custom-card {
+      background-color: rgba(31, 41, 55, 0.88);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: var(--shadow-soft);
+      height: 100%;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .custom-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      background-color: #0f172a;
+    }
+
+    .badge-tech {
+      background-color: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      margin-right: 6px;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .badge-status {
+      background-color: rgba(34, 197, 94, 0.12);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .badge-study {
+      background-color: rgba(251, 191, 36, 0.12);
+      color: #fcd34d;
+      border: 1px solid rgba(251, 191, 36, 0.25);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .project-card-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .project-card-text {
+      color: var(--text-soft);
+      font-size: 0.98rem;
+      margin-bottom: 18px;
+    }
+
+    .filter-box {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 30px;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border-soft);
+      color: var(--text-muted);
+      padding: 24px 0;
+      background-color: rgba(11, 17, 32, 0.95);
+    }
+
+    .btn-outline-light:hover {
+      color: #0b1120 !important;
+    }
+
+    .small-muted {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 991.98px) {
+      .page-title {
+        font-size: 2.1rem;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .page-title {
+        font-size: 1.8rem;
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+
+      .project-image {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INÍCIO: NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Roberto Soares</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="projetos.html">Projetos</a></li>
+          <li class="nav-item"><a class="nav-link" href="sobre.html">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- FIM: NAVBAR -->
+
+  <!-- INÍCIO: CABEÇALHO -->
+  <header class="page-header">
+    <div class="container">
+      <span class="page-badge">Catálogo de Projetos e Estudos</span>
+      <h1 class="page-title">Projetos em Dados com foco técnico, analítico e de negócio</h1>
+      <p class="page-text">
+        Nesta página você encontra uma curadoria de projetos de portfólio e estudos técnicos organizados
+        para demonstrar evolução em Ciência de Dados, Engenharia de Dados, Machine Learning, Analytics
+        e documentação profissional.
+      </p>
+    </div>
+  </header>
+  <!-- FIM: CABEÇALHO -->
+
+  <!-- INÍCIO: PROJETOS EM DESTAQUE -->
+  <section class="section-padding">
+    <div class="container">
+      <h2 class="section-title">Projetos em Destaque</h2>
+      <p class="section-subtitle">
+        Estes são alguns dos projetos que melhor representam minha proposta profissional atual e minha
+        construção de portfólio orientada ao mercado de dados.
+      </p>
+
+      <div class="filter-box">
+        <div class="row g-3 align-items-center">
+          <div class="col-lg-8">
+            <p class="mb-1 fw-semibold">Leitura recomendada desta página</p>
+            <p class="mb-0 small-muted">
+              Comece pelos projetos em destaque, depois navegue pelos projetos complementares e,
+              por fim, explore os estudos técnicos como evidência de base conceitual.
+            </p>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a href="index.html" class="btn btn-outline-light">
+              <i class="bi bi-arrow-left me-2"></i>Voltar para Início
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+
+        <!-- PROJETO 1 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <img src="assets/img/covers/credit-risk.jpg" alt="Projeto Credit Risk with Graph Curvature" class="project-image">
+            <div class="p-4">
+              <span class="badge rounded-pill badge-status">Projeto Âncora</span><br>
+
+              <span class="badge rounded-pill badge-tech">Python</span>
+              <span class="badge rounded-pill badge-tech">Graph ML</span>
+              <span class="badge rounded-pill badge-tech">Credit Risk</span>
+
+              <h3 class="project-card-title mt-3">Credit Risk with Graph Curvature</h3>
+              <p class="project-card-text">
+                Exploração de grafos KNN e curvatura de Ricci como estratégia de enriquecimento de features
+                para modelagem de risco de crédito com abordagem diferenciada.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="projeto/credit-risk-graph-curvature.html" class="btn btn-info text-dark fw-semibold">Resumo</a>
+                <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/01-credit-risk-graph-curvature.html" target="_blank" class="btn btn-outline-light">Notebook HTML</a>
+                <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJETO 2 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <img src="assets/img/covers/podbank.jpg" alt="Projeto PodBank Credit Score" class="project-image">
+            <div class="p-4">
+              <span class="badge rounded-pill badge-status">Projeto Âncora</span><br>
+
+              <span class="badge rounded-pill badge-tech">Python</span>
+              <span class="badge rounded-pill badge-tech">Machine Learning</span>
+              <span class="badge rounded-pill badge-tech">Fintech</span>
+
+              <h3 class="project-card-title mt-3">PodBank Credit Score</h3>
+              <p class="project-card-text">
+                Projeto aplicado de score de crédito com foco em preparação de dados, modelagem supervisionada,
+                leitura de negócio e organização de portfólio.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="projeto/podbank-credit-score.html" class="btn btn-info text-dark fw-semibold">Resumo</a>
+                <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/02-podbank-credit-score.html" target="_blank" class="btn btn-outline-light">Notebook HTML</a>
+                <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJETO 3 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <img src="assets/img/covers/duckdb.jpg" alt="Projeto DuckDB e Polars Analytics" class="project-image">
+            <div class="p-4">
+              <span class="badge rounded-pill badge-status">Projeto Âncora</span><br>
+
+              <span class="badge rounded-pill badge-tech">DuckDB</span>
+              <span class="badge rounded-pill badge-tech">Polars</span>
+              <span class="badge rounded-pill badge-tech">Analytics</span>
+
+              <h3 class="project-card-title mt-3">DuckDB + Polars Analytics</h3>
+              <p class="project-card-text">
+                Projeto com foco em análise moderna local, performance, organização de dados e construção
+                de narrativa técnica para um portfólio robusto.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="projeto/duckdb-polars-analytics.html" class="btn btn-info text-dark fw-semibold">Resumo</a>
+                <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/03-duckdb-polars-analytics.html" target="_blank" class="btn btn-outline-light">Notebook HTML</a>
+                <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- FIM: PROJETOS EM DESTAQUE -->
+
+  <!-- INÍCIO: TODOS OS PROJETOS -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <h2 class="section-title">Todos os Projetos</h2>
+      <p class="section-subtitle">
+        Projetos de portfólio com diferentes graus de maturidade, todos organizados para demonstrar
+        prática técnica, clareza de documentação e evolução profissional.
+      </p>
+
+      <div class="row g-4">
+
+        <!-- PROJETO 4 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <img src="assets/img/covers/time-series.jpg" alt="Projeto de Séries Temporais" class="project-image">
+            <div class="p-4">
+              <span class="badge rounded-pill badge-status">Projeto Aplicado</span><br>
+
+              <span class="badge rounded-pill badge-tech">Python</span>
+              <span class="badge rounded-pill badge-tech">Forecast</span>
+              <span class="badge rounded-pill badge-tech">Séries Temporais</span>
+
+              <h3 class="project-card-title mt-3">Time Series Forecast</h3>
+              <p class="project-card-text">
+                Projeto de análise e previsão em séries temporais com foco em interpretação de comportamento
+                temporal, modelagem e comunicação técnica.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="projeto/time-series-forecast.html" class="btn btn-info text-dark fw-semibold">Resumo</a>
+                <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/04-time-series-forecast.html" target="_blank" class="btn btn-outline-light">Notebook HTML</a>
+                <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJETO 5 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <img src="assets/img/covers/feature-engineering.jpg" alt="Projeto de Feature Engineering em Spark" class="project-image">
+            <div class="p-4">
+              <span class="badge rounded-pill badge-status">Projeto Aplicado</span><br>
+
+              <span class="badge rounded-pill badge-tech">PySpark</span>
+              <span class="badge rounded-pill badge-tech">Feature Engineering</span>
+              <span class="badge rounded-pill badge-tech">SQL</span>
+
+              <h3 class="project-card-title mt-3">Feature Engineering com Spark</h3>
+              <p class="project-card-text">
+                Estruturação de variáveis, transformação de dados e pipeline analítico voltado a contexto
+                de modelagem e preparação de datasets.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="projeto/feature-engineering-spark.html" class="btn btn-info text-dark fw-semibold">Resumo</a>
+                <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/05-feature-engineering-spark.html" target="_blank" class="btn btn-outline-light">Notebook HTML</a>
+                <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJETO 6 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <img src="assets/img/covers/maintenance.jpg" alt="Projeto de Manutenção Preditiva" class="project-image">
+            <div class="p-4">
+              <span class="badge rounded-pill badge-status">Projeto Aplicado</span><br>
+
+              <span class="badge rounded-pill badge-tech">Machine Learning</span>
+              <span class="badge rounded-pill badge-tech">IoT</span>
+              <span class="badge rounded-pill badge-tech">Predição</span>
+
+              <h3 class="project-card-title mt-3">Manutenção Preditiva Industrial</h3>
+              <p class="project-card-text">
+                Projeto de machine learning aplicado à previsão de necessidade de manutenção em máquinas
+                industriais a partir de sinais e sensores.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="projeto/predictive-maintenance.html" class="btn btn-info text-dark fw-semibold">Resumo</a>
+                <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/06-predictive-maintenance.html" target="_blank" class="btn btn-outline-light">Notebook HTML</a>
+                <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light">GitHub</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- FIM: TODOS OS PROJETOS -->
+
+  <!-- INÍCIO: ESTUDOS TÉCNICOS -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <h2 class="section-title">Estudos Técnicos</h2>
+      <p class="section-subtitle">
+        Estudos que reforçam minha base conceitual e mostram disciplina na construção de fundamentos
+        matemáticos, computacionais e analíticos.
+      </p>
+
+      <div class="row g-4">
+
+        <!-- ESTUDO 1 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <div class="p-4">
+              <span class="badge rounded-pill badge-study">Estudo Técnico</span><br>
+
+              <span class="badge rounded-pill badge-tech">Python</span>
+              <span class="badge rounded-pill badge-tech">Matemática</span>
+              <span class="badge rounded-pill badge-tech">Fundamentos</span>
+
+              <h3 class="project-card-title mt-3">Fundamentos Matemáticos com Python</h3>
+              <p class="project-card-text">
+                Exercícios e explorações voltados à construção de base matemática aplicada à programação
+                e ao raciocínio analítico.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/fundamental-mathematics-with-python-language.html" target="_blank" class="btn btn-outline-light">Abrir HTML</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESTUDO 2 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <div class="p-4">
+              <span class="badge rounded-pill badge-study">Estudo Técnico</span><br>
+
+              <span class="badge rounded-pill badge-tech">Álgebra Linear</span>
+              <span class="badge rounded-pill badge-tech">Vetores</span>
+              <span class="badge rounded-pill badge-tech">Python</span>
+
+              <h3 class="project-card-title mt-3">Representação Vetorial e Álgebra Linear</h3>
+              <p class="project-card-text">
+                Estudos focados em vetores, representações geométricas e conceitos fundamentais importantes
+                para machine learning e ciência de dados.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/geometric-representation-vectors-linear-algebra.html" target="_blank" class="btn btn-outline-light">Abrir HTML</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESTUDO 3 -->
+        <div class="col-md-6 col-xl-4">
+          <div class="custom-card">
+            <div class="p-4">
+              <span class="badge rounded-pill badge-study">Estudo Técnico</span><br>
+
+              <span class="badge rounded-pill badge-tech">Marketing Analytics</span>
+              <span class="badge rounded-pill badge-tech">A/B Test</span>
+              <span class="badge rounded-pill badge-tech">Geoespacial</span>
+
+              <h3 class="project-card-title mt-3">Marketing Analytics e Testes A/B</h3>
+              <p class="project-card-text">
+                Estudo aplicado com foco em experimentação, análise de resultados e interpretação de
+                campanhas em contexto analítico.
+              </p>
+
+              <div class="d-flex flex-wrap gap-2">
+                <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/marketing-analytics-ab-test.html" target="_blank" class="btn btn-outline-light">Abrir HTML</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- FIM: ESTUDOS TÉCNICOS -->
+
+  <!-- INÍCIO: CTA FINAL -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="filter-box text-center">
+        <h2 class="section-title">Próxima evolução do catálogo</h2>
+        <p class="section-subtitle mx-auto mb-4">
+          Esta página já está pronta para receber novos projetos. A próxima etapa natural será transformar
+          esse catálogo em uma estrutura dinâmica com metadados centralizados.
+        </p>
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+          <a href="index.html" class="btn btn-info btn-lg text-dark fw-semibold">
+            Voltar para Início
+          </a>
+          <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light btn-lg">
+            Ver GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: CTA FINAL -->
+
+  <!-- INÍCIO: FOOTER -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p class="mb-1">© 2026 Roberto Soares. Todos os direitos reservados.</p>
+      <small>Catálogo profissional de projetos e estudos em dados.</small>
+    </div>
+  </footer>
+  <!-- FIM: FOOTER -->
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+</body>
+</html>

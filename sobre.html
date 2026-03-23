@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sobre | Roberto Soares</title>
+  <meta name="description" content="Conheça a trajetória, o reposicionamento profissional e a visão de Roberto Soares sobre dados, analytics, ciência de dados e engenharia de dados.">
+  <meta name="author" content="Roberto Soares">
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  >
+
+  <style>
+    :root {
+      --bg-main: #0b1120;
+      --bg-secondary: #111827;
+      --bg-card: #1f2937;
+      --text-main: #f8fafc;
+      --text-soft: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-border: rgba(56, 189, 248, 0.25);
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    body {
+      background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
+      color: var(--text-main);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .navbar {
+      background-color: rgba(11, 17, 32, 0.92) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: var(--text-main) !important;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent) !important;
+    }
+
+    .page-header {
+      padding: 120px 0 70px 0;
+      background:
+        linear-gradient(rgba(11, 17, 32, 0.90), rgba(11, 17, 32, 0.96)),
+        url("assets/img/banners/hero-bg.jpg") center/cover no-repeat;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .page-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 999px;
+      color: var(--accent);
+      background-color: rgba(56, 189, 248, 0.08);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .page-title {
+      font-size: 2.7rem;
+      line-height: 1.15;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .page-subtitle {
+      color: var(--text-soft);
+      font-size: 1.08rem;
+      max-width: 860px;
+      margin-bottom: 0;
+    }
+
+    .section-padding {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.85;
+    }
+
+    .content-card {
+      background-color: rgba(31, 41, 55, 0.88);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: var(--shadow-soft);
+      padding: 28px;
+      height: 100%;
+    }
+
+    .mini-card {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 22px;
+      height: 100%;
+    }
+
+    .profile-image {
+      width: 100%;
+      max-width: 340px;
+      border-radius: 1rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .badge-tech {
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      margin-right: 6px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .highlight-list {
+      padding-left: 1.2rem;
+      margin-bottom: 0;
+    }
+
+    .highlight-list li {
+      color: var(--text-soft);
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .info-box {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 24px;
+      text-align: center;
+      height: 100%;
+    }
+
+    .info-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .small-muted {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .btn-outline-light:hover {
+      color: #0b1120 !important;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border-soft);
+      color: var(--text-muted);
+      padding: 24px 0;
+      background-color: rgba(11, 17, 32, 0.95);
+    }
+
+    @media (max-width: 991.98px) {
+      .page-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .page-title {
+        font-size: 1.9rem;
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+
+      .page-header {
+        padding: 110px 0 60px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Roberto Soares</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="projetos.html">Projetos</a></li>
+          <li class="nav-item"><a class="nav-link active" href="sobre.html">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="page-header">
+    <div class="container">
+      <span class="page-badge">Trajetória • Posicionamento • Visão Profissional</span>
+      <h1 class="page-title">Sobre Roberto Soares</h1>
+      <p class="page-subtitle">
+        Profissional com longa trajetória na área de dados, em processo de consolidação estratégica
+        em Ciência de Dados, Engenharia de Dados e Analytics aplicado, com foco em projetos bem
+        documentados, construção de portfólio e conexão entre técnica e negócio.
+      </p>
+    </div>
+  </header>
+
+  <!-- APRESENTAÇÃO -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-4 text-center">
+          <img
+            src="assets/img/profile/roberto-soares.jpg"
+            alt="Foto de Roberto Soares"
+            class="img-fluid profile-image"
+          >
+        </div>
+
+        <div class="col-lg-8">
+          <div class="content-card">
+            <h2 class="section-title">Minha Jornada</h2>
+            <p class="section-text">
+              Sou Roberto Soares, profissional da área de dados com uma trajetória construída ao longo de muitos anos em contextos analíticos, de negócio e de apoio à tomada de decisão. Ao longo do tempo, desenvolvi uma base sólida em análise, interpretação de informações e visão orientada a valor.
+            </p>
+            <p class="section-text">
+              Nos últimos anos, tenho direcionado meus esforços para consolidar uma transição estratégica em direção a Ciência de Dados, Engenharia de Dados e soluções analíticas mais modernas, aprofundando conhecimentos em Python, SQL, Machine Learning, organização de pipelines, documentação técnica e construção de projetos aplicados.
+            </p>
+            <p class="section-text mb-0">
+              Este portfólio representa essa evolução: uma vitrine de estudos, projetos e experimentos organizados para demonstrar capacidade técnica, clareza de raciocínio, disciplina de aprendizado e compromisso com entrega profissional.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSICIONAMENTO -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="mini-card">
+            <h2 class="section-title h4">Meu Posicionamento Atual</h2>
+            <p class="section-text mb-0">
+              Busco construir uma presença profissional que una repertório analítico, maturidade de negócio
+              e evolução técnica. Meu foco está em projetos que demonstrem aplicação prática, boa comunicação,
+              estruturação clara e alinhamento com demandas reais do mercado de dados.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="mini-card">
+            <h2 class="section-title h4">O que busco demonstrar</h2>
+            <p class="section-text mb-0">
+              Quero mostrar não apenas conhecimento de ferramentas, mas também capacidade de formular problemas,
+              organizar soluções, documentar raciocínios, interpretar resultados e transformar estudos em ativos
+              profissionais relevantes para recrutadores, lideranças e times de dados.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTAQUES -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <h2 class="section-title">Destaques da minha construção profissional</h2>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="info-box">
+            <span class="info-number">25+</span>
+            <p class="mb-0 small-muted">
+              Anos de experiência profissional com forte base em contexto analítico e de negócio.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="info-box">
+            <span class="info-number">Dados</span>
+            <p class="mb-0 small-muted">
+              Foco atual em Analytics, Ciência de Dados, Engenharia de Dados e portfólio técnico.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="info-box">
+            <span class="info-number">Projetos</span>
+            <p class="mb-0 small-muted">
+              Construção contínua de cases, estudos aplicados e documentação orientada ao mercado.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETÊNCIAS -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card">
+        <h2 class="section-title">Competências e frentes de desenvolvimento</h2>
+
+        <div class="row g-4 mt-1">
+          <div class="col-lg-6">
+            <ul class="highlight-list">
+              <li>Análise de dados e geração de insights para suporte à decisão.</li>
+              <li>Python e SQL aplicados à exploração, transformação e organização analítica.</li>
+              <li>Machine Learning supervisionado, feature engineering e avaliação de modelos.</li>
+              <li>Documentação técnica e construção de notebooks com narrativa profissional.</li>
+            </ul>
+          </div>
+
+          <div class="col-lg-6">
+            <ul class="highlight-list">
+              <li>Estudos em ferramentas modernas como DuckDB, Polars, PySpark e Streamlit.</li>
+              <li>Organização de portfólio com foco em clareza, progressão e posicionamento.</li>
+              <li>Integração entre fundamentos analíticos, storytelling e apresentação executiva.</li>
+              <li>Evolução contínua em projetos aplicados a crédito, risco, séries temporais e analytics.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <span class="badge rounded-pill badge-tech">Python</span>
+          <span class="badge rounded-pill badge-tech">SQL</span>
+          <span class="badge rounded-pill badge-tech">Pandas</span>
+          <span class="badge rounded-pill badge-tech">Polars</span>
+          <span class="badge rounded-pill badge-tech">DuckDB</span>
+          <span class="badge rounded-pill badge-tech">PySpark</span>
+          <span class="badge rounded-pill badge-tech">Machine Learning</span>
+          <span class="badge rounded-pill badge-tech">Analytics</span>
+          <span class="badge rounded-pill badge-tech">Streamlit</span>
+          <span class="badge rounded-pill badge-tech">HTML + Bootstrap</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISÃO DE TRABALHO -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="mini-card">
+            <h2 class="section-title h4">Como gosto de construir projetos</h2>
+            <p class="section-text">
+              Valorizo projetos que tenham começo, meio e fim: contexto, problema, abordagem, execução,
+              documentação e leitura de resultados. Acredito que um bom projeto técnico precisa ser
+              compreensível, reproduzível e comunicável.
+            </p>
+            <p class="section-text mb-0">
+              Por isso, procuro estruturar meus trabalhos com clareza visual, boa narrativa, padronização,
+              rastreabilidade das decisões e foco em demonstrar valor além do código.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="mini-card">
+            <h2 class="section-title h4">Minha visão sobre dados</h2>
+            <p class="section-text">
+              Vejo dados como ponte entre contexto, decisão e transformação. Mais do que ferramentas,
+              o que me interessa é a capacidade de gerar entendimento, reduzir incerteza e apoiar escolhas
+              com base analítica consistente.
+            </p>
+            <p class="section-text mb-0">
+              É essa visão que busco traduzir neste portfólio: projetos que dialoguem com mercado,
+              demonstrem evolução e deixem claro meu compromisso com aprendizado contínuo e aplicação prática.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card text-center">
+        <h2 class="section-title">Vamos nos conectar</h2>
+        <p class="section-text mb-4">
+          Este portfólio foi construído como uma vitrine técnica e estratégica da minha evolução em dados.
+          Fico aberto a conexões, oportunidades, networking e conversas profissionais.
+        </p>
+
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+          <a href="projetos.html" class="btn btn-info btn-lg text-dark fw-semibold">
+            <i class="bi bi-grid me-2"></i>Ver Projetos
+          </a>
+          <a href="https://www.linkedin.com/in/roberto-dos-santos-soares/" target="_blank" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-linkedin me-2"></i>LinkedIn
+          </a>
+          <a href="contato.html" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-envelope me-2"></i>Contato
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p class="mb-1">© 2026 Roberto Soares. Todos os direitos reservados.</p>
+      <small>Página institucional do portfólio profissional em dados.</small>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+</body>
+</html>

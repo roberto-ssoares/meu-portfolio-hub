@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Credit Risk with Graph Curvature | Roberto Soares</title>
+  <meta name="description" content="Página-resumo do projeto Credit Risk with Graph Curvature, com foco em grafos KNN, curvatura de Ricci e enriquecimento de features para risco de crédito.">
+  <meta name="author" content="Roberto Soares">
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  >
+
+  <style>
+    :root {
+      --bg-main: #0b1120;
+      --bg-secondary: #111827;
+      --bg-card: #1f2937;
+      --text-main: #f8fafc;
+      --text-soft: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-border: rgba(56, 189, 248, 0.25);
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    body {
+      background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
+      color: var(--text-main);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .navbar {
+      background-color: rgba(11, 17, 32, 0.92) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: var(--text-main) !important;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent) !important;
+    }
+
+    .hero-project {
+      padding: 120px 0 70px 0;
+      background:
+        linear-gradient(rgba(11, 17, 32, 0.88), rgba(11, 17, 32, 0.95)),
+        url("../assets/img/covers/credit-risk-graph-curvature.jpg") center/cover no-repeat;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .project-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 999px;
+      color: var(--accent);
+      background-color: rgba(56, 189, 248, 0.08);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .project-title {
+      font-size: 2.7rem;
+      line-height: 1.15;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .project-subtitle {
+      color: var(--text-soft);
+      font-size: 1.08rem;
+      max-width: 850px;
+      margin-bottom: 26px;
+    }
+
+    .section-padding {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .content-card {
+      background-color: rgba(31, 41, 55, 0.88);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: var(--shadow-soft);
+      padding: 28px;
+      height: 100%;
+    }
+
+    .mini-card {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 22px;
+      height: 100%;
+    }
+
+    .badge-tech {
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      margin-right: 6px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .highlight-list {
+      padding-left: 1.2rem;
+      margin-bottom: 0;
+    }
+
+    .highlight-list li {
+      color: var(--text-soft);
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .metric-box {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 24px;
+      text-align: center;
+      height: 100%;
+    }
+
+    .metric-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .small-muted {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .btn-outline-light:hover {
+      color: #0b1120 !important;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border-soft);
+      color: var(--text-muted);
+      padding: 24px 0;
+      background-color: rgba(11, 17, 32, 0.95);
+    }
+
+    @media (max-width: 991.98px) {
+      .project-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .project-title {
+        font-size: 1.9rem;
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+
+      .hero-project {
+        padding: 110px 0 60px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INÍCIO: NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="../index.html">Roberto Soares</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link active" href="../projetos.html">Projetos</a></li>
+          <li class="nav-item"><a class="nav-link" href="../sobre.html">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="../contato.html">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- FIM: NAVBAR -->
+
+  <!-- INÍCIO: HERO DO PROJETO -->
+  <header class="hero-project">
+    <div class="container">
+      <span class="project-badge">Projeto Âncora • Credit Risk • Graph ML</span>
+
+      <h1 class="project-title">Credit Risk with Graph Curvature</h1>
+
+      <p class="project-subtitle">
+        Projeto explorando grafos KNN e curvatura de Ricci como abordagem de enriquecimento de features
+        para modelagem de risco de crédito, conectando fundamentos geométricos, machine learning e
+        interpretação orientada a negócio.
+      </p>
+
+      <div class="d-flex flex-wrap gap-2">
+        <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/01-credit-risk-graph-curvature.html" target="_blank" class="btn btn-info btn-lg text-dark fw-semibold">
+          <i class="bi bi-box-arrow-up-right me-2"></i>Notebook HTML Completo
+        </a>
+        <a href="https://github.com/roberto-ssoares" target="_blank" class="btn btn-outline-light btn-lg">
+          <i class="bi bi-github me-2"></i>Repositório no GitHub
+        </a>
+        <a href="../projetos.html" class="btn btn-outline-light btn-lg">
+          <i class="bi bi-arrow-left me-2"></i>Voltar ao Catálogo
+        </a>
+      </div>
+    </div>
+  </header>
+  <!-- FIM: HERO DO PROJETO -->
+
+  <!-- INÍCIO: VISÃO GERAL -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="content-card">
+            <h2 class="section-title">Visão Geral do Projeto</h2>
+            <p class="section-text">
+              Em cenários de risco de crédito, grande parte das abordagens tradicionais depende de variáveis
+              tabulares clássicas. Este projeto investiga uma linha complementar: representar clientes em um
+              espaço relacional por meio de grafos e extrair sinais geométricos das conexões, ampliando a
+              capacidade descritiva do conjunto de dados.
+            </p>
+            <p class="section-text mb-0">
+              A proposta central foi construir um grafo de vizinhança entre clientes, aplicar conceitos de
+              curvatura discreta nas arestas e transformar esses sinais em features que possam apoiar análises
+              e futuras etapas de modelagem supervisionada em contexto de crédito.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="content-card">
+            <h2 class="section-title h4">Ficha Técnica</h2>
+
+            <p class="mb-2"><strong>Domínio:</strong> Risco de Crédito</p>
+            <p class="mb-2"><strong>Tipo:</strong> Projeto de Portfólio</p>
+            <p class="mb-2"><strong>Abordagem:</strong> Graph ML / Feature Engineering</p>
+            <p class="mb-3"><strong>Foco:</strong> Enriquecimento de sinais geométricos</p>
+
+            <div class="mt-3">
+              <span class="badge rounded-pill badge-tech">Python</span>
+              <span class="badge rounded-pill badge-tech">Pandas</span>
+              <span class="badge rounded-pill badge-tech">Scikit-learn</span>
+              <span class="badge rounded-pill badge-tech">NetworkX</span>
+              <span class="badge rounded-pill badge-tech">Graph ML</span>
+              <span class="badge rounded-pill badge-tech">Credit Risk</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: VISÃO GERAL -->
+
+  <!-- INÍCIO: PROBLEMA E OBJETIVO -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="mini-card">
+            <h2 class="section-title h4">Problema de Negócio</h2>
+            <p class="section-text mb-0">
+              Modelos de crédito dependem fortemente da qualidade dos sinais disponíveis. Em muitos casos,
+              variáveis tradicionais não capturam padrões relacionais, proximidades estruturais ou indícios
+              geométricos úteis para diferenciar perfis de comportamento.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="mini-card">
+            <h2 class="section-title h4">Objetivo do Projeto</h2>
+            <p class="section-text mb-0">
+              Explorar se estruturas baseadas em grafos e curvatura de Ricci podem gerar atributos
+              complementares, tecnicamente interessantes e potencialmente úteis para enriquecer estudos
+              de risco de crédito.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: PROBLEMA E OBJETIVO -->
+
+  <!-- INÍCIO: ABORDAGEM -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card">
+        <h2 class="section-title">Abordagem Aplicada</h2>
+
+        <div class="row g-4 mt-1">
+          <div class="col-md-6">
+            <ul class="highlight-list">
+              <li>Seleção e preparação de variáveis relevantes para representar clientes em um espaço analítico.</li>
+              <li>Construção de um grafo KNN para modelar proximidade entre observações.</li>
+              <li>Cálculo de medidas geométricas associadas às conexões do grafo.</li>
+            </ul>
+          </div>
+
+          <div class="col-md-6">
+            <ul class="highlight-list">
+              <li>Transformação de sinais estruturais em features derivadas.</li>
+              <li>Análise interpretativa do comportamento das conexões e da curvatura observada.</li>
+              <li>Organização do estudo com narrativa técnica voltada a portfólio profissional.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: ABORDAGEM -->
+
+  <!-- INÍCIO: DESTAQUES -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <h2 class="section-title">Destaques do Projeto</h2>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="metric-box">
+            <span class="metric-number">KNN</span>
+            <p class="mb-0 small-muted">
+              Representação relacional entre clientes por proximidade no espaço de features.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="metric-box">
+            <span class="metric-number">Ricci</span>
+            <p class="mb-0 small-muted">
+              Uso de curvatura discreta como sinal geométrico nas conexões do grafo.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="metric-box">
+            <span class="metric-number">Features</span>
+            <p class="mb-0 small-muted">
+              Geração de atributos derivados para enriquecer análises e modelagens futuras.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: DESTAQUES -->
+
+  <!-- INÍCIO: VALOR PARA PORTFÓLIO -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card">
+        <h2 class="section-title">Por que este projeto é relevante no portfólio</h2>
+        <div class="row g-4 mt-1">
+          <div class="col-lg-6">
+            <ul class="highlight-list">
+              <li>Mostra capacidade de conectar teoria matemática e aplicação em negócio.</li>
+              <li>Explora uma abordagem diferenciada para risco de crédito.</li>
+              <li>Demonstra curiosidade técnica e profundidade analítica.</li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <ul class="highlight-list">
+              <li>Reforça competências em feature engineering e modelagem relacional.</li>
+              <li>Ajuda a contar uma narrativa de portfólio mais autoral e memorável.</li>
+              <li>Serve como ponte entre fundamentos, experimentação e aplicação prática.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: VALOR PARA PORTFÓLIO -->
+
+  <!-- INÍCIO: PRÓXIMOS PASSOS -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card">
+        <h2 class="section-title">Próximos Passos</h2>
+        <ul class="highlight-list">
+          <li>Comparar o desempenho de modelos com e sem features geométricas.</li>
+          <li>Aprofundar a análise de interpretabilidade dos sinais derivados do grafo.</li>
+          <li>Evoluir o projeto para uma versão com pipeline mais estruturado e documentação ampliada.</li>
+          <li>Expandir a abordagem para outros problemas de negócio além de crédito.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: PRÓXIMOS PASSOS -->
+
+  <!-- INÍCIO: CTA FINAL -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card text-center">
+        <h2 class="section-title">Explorar o projeto completo</h2>
+        <p class="section-text mb-4">
+          Esta página apresenta a visão executiva do case. Para ver a construção técnica detalhada,
+          a documentação analítica e a evolução do estudo, acesse o notebook HTML completo.
+        </p>
+
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+          <a href="https://roberto-ssoares.github.io/_meu-portfolio-notebooks-html/projects/01-credit-risk-graph-curvature.html" target="_blank" class="btn btn-info btn-lg text-dark fw-semibold">
+            <i class="bi bi-box-arrow-up-right me-2"></i>Abrir Notebook HTML
+          </a>
+          <a href="../projetos.html" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-grid me-2"></i>Voltar para Projetos
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: CTA FINAL -->
+
+  <!-- INÍCIO: FOOTER -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p class="mb-1">© 2026 Roberto Soares. Todos os direitos reservados.</p>
+      <small>Página-resumo do projeto Credit Risk with Graph Curvature.</small>
+    </div>
+  </footer>
+  <!-- FIM: FOOTER -->
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+</body>
+</html>
