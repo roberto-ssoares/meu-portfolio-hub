@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NLP Triagem Inteligente Financeira | Roberto Soares</title>
+  <meta name="description" content="Projeto de NLP aplicado ao setor financeiro para classificação multiclasses de perguntas e demandas textuais, com comparação entre baseline e transformer e decisão técnica orientada por evidência."
+  >
+
+  <meta name="author" content="Roberto Soares">
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  >
+
+  <style>
+    :root {
+      --bg-main: #0b1120;
+      --bg-secondary: #111827;
+      --bg-card: #1f2937;
+      --text-main: #f8fafc;
+      --text-soft: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-border: rgba(56, 189, 248, 0.25);
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    body {
+      background: linear-gradient(180deg, #0b1120 0%, #111827 100%);
+      color: var(--text-main);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .navbar {
+      background-color: rgba(11, 17, 32, 0.92) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: var(--text-main) !important;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent) !important;
+    }
+
+    .hero-project {
+      padding: 120px 0 70px 0;
+      background:
+        linear-gradient(rgba(11, 17, 32, 0.88), rgba(11, 17, 32, 0.95)),
+        url("../assets/img/covers/nlp-triagem-inteligente-financeira.jpg") center/cover no-repeat;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .project-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 999px;
+      color: var(--accent);
+      background-color: rgba(56, 189, 248, 0.08);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .project-title {
+      font-size: 2.7rem;
+      line-height: 1.15;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .project-subtitle {
+      color: var(--text-soft);
+      font-size: 1.08rem;
+      max-width: 850px;
+      margin-bottom: 26px;
+    }
+
+    .section-padding {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: var(--text-soft);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .content-card {
+      background-color: rgba(31, 41, 55, 0.88);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: var(--shadow-soft);
+      padding: 28px;
+      height: 100%;
+    }
+
+    .mini-card {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 22px;
+      height: 100%;
+    }
+
+    .badge-tech {
+      background-color: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+      margin-right: 6px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .highlight-list {
+      padding-left: 1.2rem;
+      margin-bottom: 0;
+    }
+
+    .highlight-list li {
+      color: var(--text-soft);
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .metric-box {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      padding: 24px;
+      text-align: center;
+      height: 100%;
+    }
+
+    .metric-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .small-muted {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .btn-outline-light:hover {
+      color: #0b1120 !important;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border-soft);
+      color: var(--text-muted);
+      padding: 24px 0;
+      background-color: rgba(11, 17, 32, 0.95);
+    }
+
+    @media (max-width: 991.98px) {
+      .project-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .project-title {
+        font-size: 1.9rem;
+      }
+
+      .section-title {
+        font-size: 1.7rem;
+      }
+
+      .hero-project {
+        padding: 110px 0 60px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INÍCIO: NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="../index.html">Roberto Soares</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Alternar navegação">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Início</a></li>
+          <li class="nav-item"><a class="nav-link active" href="../projetos.html">Projetos</a></li>
+          <li class="nav-item"><a class="nav-link" href="../sobre.html">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="../contato.html">Contato</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- FIM: NAVBAR -->
+
+  <!-- INÍCIO: HERO DO PROJETO -->
+  <header class="hero-project">
+    <div class="container">
+      <span class="project-badge">Projeto Aplicado • NLP • Setor Financeiro</span>
+
+      <h1 class="project-title">NLP Triagem Inteligente Financeira</h1>
+
+      <p class="project-subtitle">
+        Projeto de Processamento de Linguagem Natural aplicado ao domínio financeiro, com foco na
+        classificação multiclasses de perguntas e demandas textuais para apoiar triagem inteligente,
+        priorização e encaminhamento operacional.
+      </p>
+
+      <div class="d-flex flex-wrap gap-2">
+        <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_1-business_understanding.html" target="_blank" class="btn btn-info btn-lg text-dark fw-semibold">
+          <i class="bi bi-box-arrow-up-right me-2"></i>Notebook HTML Completo
+        </a>
+        <a href="https://github.com/roberto-ssoares/nlp-triagem-inteligente-financeira" target="_blank" class="btn btn-outline-light btn-lg">
+          <i class="bi bi-github me-2"></i>Repositório no GitHub
+        </a>
+        <a href="../projetos.html" class="btn btn-outline-light btn-lg">
+          <i class="bi bi-arrow-left me-2"></i>Voltar ao Catálogo
+        </a>
+      </div>
+    </div>
+  </header>
+  <!-- FIM: HERO DO PROJETO -->
+
+  <!-- INÍCIO: VISÃO GERAL -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="content-card">
+            <h2 class="section-title">Visão Geral do Projeto</h2>
+            <p class="section-text">
+              Este projeto foi desenvolvido como um case de portfólio para demonstrar um fluxo completo de NLP aplicado ao negócio,
+              desde o entendimento de domínio até readiness para deployment inicial. A solução foi estruturada para classificar perguntas financeiras em categorias, comparar abordagens clássicas e avançadas e apoiar uma decisão técnica orientada por evidência.
+            </p>
+            <p class="section-text mb-0">
+              Além da modelagem, o projeto também buscou demonstrar estruturação metodológica, capacidade de comparação entre abordagens
+              e preparação para um deployment inicial com logging e monitoramento básico.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="content-card">
+            <h2 class="section-title h4">Ficha Técnica</h2>
+
+            <p class="mb-2"><strong>Domínio:</strong> Atendimento e triagem no setor financeiro</p>
+            <p class="mb-2"><strong>Tipo:</strong> Projeto de Portfólio</p>
+            <p class="mb-2"><strong>Abordagem:</strong> NLP Multiclasses / Classificação Textual</p>
+            <p class="mb-3"><strong>Foco:</strong> Enriquecimento de sinais geométricos</p>
+            <p class="mb-2"><strong>Metodologia:</strong> CRISP-DM+ Lean com Ontologia e BLM</p>
+            <p class="mb-2"><strong>Deployment inicial:</strong> Baseline com API readiness</p>
+            <p class="mb-0"><strong>Idioma:</strong> Português</p>
+
+
+            <div class="mt-3">
+              <span class="badge rounded-pill badge-tech">Python</span>
+              <span class="badge rounded-pill badge-tech">Pandas</span>
+              <span class="badge rounded-pill badge-tech">Scikit-learn</span>
+              <span class="badge rounded-pill badge-tech">Transformers</span>              
+              <span class="badge rounded-pill badge-tech">NKP</span>
+              <span class="badge rounded-pill badge-tech">Machine Learning</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: VISÃO GERAL -->
+
+  <!-- INÍCIO: PROBLEMA E OBJETIVO -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="mini-card">
+            <h2 class="section-title h4">Problema de Negócio</h2>
+            <p class="section-text mb-0">
+              Instituições financeiras recebem continuamente dúvidas, solicitações e manifestações textuais vindas de canais como app,
+              web, chat e atendimento humano. Quando essa triagem depende fortemente de análise manual, surgem inconsistências de classificação,
+              aumento de esforço operacional e dificuldade de roteamento.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="mini-card">
+            <h2 class="section-title h4">Objetivo do Projeto</h2>
+            <p class="section-text mb-0">
+              Construir uma solução de NLP capaz de receber uma pergunta financeira em linguagem natural e prever sua categoria,
+              apoiando cenários de triagem, priorização e encaminhamento.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: PROBLEMA E OBJETIVO -->
+
+  <!-- INÍCIO: ABORDAGEM -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card">
+        <h2 class="section-title">Abordagem Aplicada</h2>
+
+        <div class="row g-4 mt-1">
+          <div class="col-md-6">
+            <ul class="highlight-list">
+              <li>Entendimento de domínio com Ontologia mínima e BLM na Etapa 0.</li>
+              <li>Preparação de dados em camadas bronze, silver e gold.</li>
+              <li>Treino de baseline supervisionado com TF-IDF + Logistic Regression.</li>
+            </ul>
+          </div>
+
+          <div class="col-md-6">
+            <ul class="highlight-list">
+              <li>Experimento comparativo com transformer para avaliar ganho contextual.</li>
+              <li>Avaliação quantitativa e qualitativa dos erros.</li>
+              <li>Decisão técnica baseada em evidência para escolha do modelo de deployment inicial.</li>
+              <li>Preparação da camada de inferência, logging e monitoramento básico.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: ABORDAGEM -->
+
+  <!-- INÍCIO: DESTAQUES -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <h2 class="section-title">Destaques do Projeto</h2>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="metric-box">
+            <span class="metric-number">Baseline Forte</span>
+            <p class="mb-0 small-muted">
+              O baseline com TF-IDF + Logistic Regression apresentou o melhor desempenho observado e se mostrou a alternativa mais robusta para a primeira entrega.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="metric-box">
+            <span class="metric-number">Comparação Honesta</span>
+            <p class="mb-0 small-muted">
+              O projeto comparou baseline e transformer de forma explícita, documentando resultados, limitações e implicações técnicas sem maquiar o experimento.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="metric-box">
+            <span class="metric-number">Deployment Readiness</span>
+            <p class="mb-0 small-muted">
+              A solução foi preparada para inferência, logging de predições, monitoramento inicial e futura integração com API REST baseada em FastAPI.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: DESTAQUES -->
+
+  <!-- INÍCIO: VALOR PARA PORTFÓLIO -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card">
+        <h2 class="section-title">Por que este projeto é relevante no portfólio</h2>
+        <div class="row g-4 mt-1">
+          <div class="col-lg-6">
+            <ul class="highlight-list">
+              <li>Mostra aplicação de NLP em um contexto financeiro realista e em português.</li>
+              <li>Demonstra método ao longo de todo o pipeline, do problema ao deployment readiness.</li>
+              <li>Mostra maturidade analítica ao comparar abordagens e sustentar decisão baseada em evidência.</li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <ul class="highlight-list">
+              <li>Reforça competências em Machine Learning, organização de projeto, documentação e serving inicial.</li>
+              <li>Ajuda a construir uma narrativa de portfólio mais completa, conectando técnica, negócio e produto.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: VALOR PARA PORTFÓLIO -->
+
+  <!-- INÍCIO: PRÓXIMOS PASSOS -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card">
+        <h2 class="section-title">Próximos Passos</h2>
+        <ul class="highlight-list">
+          <li>Implementar a API executável com FastAPI e endpoints de inferência.</li>
+          <li>Adicionar healthcheck, model-info e camada mais robusta de logging.</li>
+          <li>Construir dashboard simples de monitoramento operacional.</li>
+          <li>Executar nova rodada do transformer com target reagrupado e taxonomia mais viável.</li>
+          <li>Evoluir a solução para cenários complementares, como recuperação assistida de resposta.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: PRÓXIMOS PASSOS -->
+
+  <!-- INÍCIO: CTA FINAL -->
+  <section class="section-padding pt-0">
+    <div class="container">
+      <div class="content-card text-center">
+        <h2 class="section-title">Explorar o projeto completo</h2>
+        <p class="section-text mb-4">
+          Esta página apresenta a visão executiva do case. Para ver a construção técnica detalhada, a documentação analítica
+          e a evolução do estudo, acesse o notebook HTML completo e o repositório do projeto.
+        </p>
+
+        <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+          <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_1-business_understanding.html" target="_blank" class="btn btn-info btn-lg text-dark fw-semibold">
+            <i class="bi bi-box-arrow-up-right me-2"></i>Abrir Notebook HTML
+          </a>
+          <a href="../projetos.html" class="btn btn-outline-light btn-lg">
+            <i class="bi bi-grid me-2"></i>Voltar para Projetos
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- FIM: CTA FINAL -->
+
+  <!-- INÍCIO: FOOTER -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p class="mb-1">© 2026 Roberto Soares. Todos os direitos reservados.</p>
+      <small>ágina-resumo do projeto NLP Triagem Inteligente Financeira.</small>
+    </div>
+  </footer>
+  <!-- FIM: FOOTER -->
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+</body>
+</html>
