@@ -37,12 +37,13 @@ A página principal apresenta:
 ```text
 meu-portfolio-hub/
 ├── assets/
-│   └── img/
+│ └── img/
 ├── projeto/
 ├── contato.html
 ├── index.html
 ├── projetos.html
 ├── sobre.html
+```
 
 
 
