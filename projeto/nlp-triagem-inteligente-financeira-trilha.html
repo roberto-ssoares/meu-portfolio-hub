@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NLP Triagem Inteligente Financeira | Trilha dos Notebooks</title>
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
+
+  <style>
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(13, 202, 240, 0.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(13, 110, 253, 0.10), transparent 24%),
+        linear-gradient(180deg, #07111b 0%, #08131f 100%);
+      color: #e9f2ff;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .navbar-custom {
+      background: rgba(7, 17, 27, 0.75);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-trilha {
+      padding: 5rem 0 3rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(13, 202, 240, 0.35);
+      background: rgba(13, 202, 240, 0.10);
+      color: #6fe7ff;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      margin-top: 1.25rem;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #c9d9ea;
+      max-width: 920px;
+    }
+
+    .summary-card,
+    .phase-card,
+    .cta-box {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+    }
+
+    .summary-card {
+      padding: 1.4rem;
+      height: 100%;
+    }
+
+    .summary-number {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #0dcaf0 0%, #32d7f5 100%);
+      color: #041018;
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .summary-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .section-kicker {
+      color: #72e6fb;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+      display: inline-block;
+    }
+
+    .section-title {
+      color: #ffffff;
+      font-weight: 800;
+      margin-bottom: 0.85rem;
+    }
+
+    .section-text {
+      color: #c9d9ea;
+      line-height: 1.8;
+    }
+
+    .flow-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .flow-pill {
+      padding: 0.65rem 1rem;
+      border-radius: 999px;
+      background: rgba(13, 202, 240, 0.08);
+      border: 1px solid rgba(13, 202, 240, 0.24);
+      color: #91efff;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .timeline-wrapper {
+      position: relative;
+      margin-top: 2rem;
+      padding-left: 2.2rem;
+      border-left: 2px solid rgba(13, 202, 240, 0.20);
+    }
+
+    .phase-item {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .phase-marker {
+      position: absolute;
+      left: -3.3rem;
+      top: 1rem;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0dcaf0 0%, #71e7ff 100%);
+      color: #041018;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 6px #08131f;
+    }
+
+    .phase-card {
+      padding: 1.5rem;
+    }
+
+    .phase-badge {
+      display: inline-block;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(13, 202, 240, 0.10);
+      border: 1px solid rgba(13, 202, 240, 0.24);
+      color: #85ebff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.9rem;
+    }
+
+    .phase-card h3 {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.85rem;
+    }
+
+    .phase-card p {
+      color: #c9d9ea;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+
+    .mini-label {
+      color: #8eeeff;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .phase-note {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 0.95rem 1rem;
+      color: #d4e3f2;
+      margin-bottom: 1rem;
+    }
+
+    .btn-cyan {
+      background: #0dcaf0;
+      border: 1px solid #0dcaf0;
+      color: #05121a;
+      font-weight: 700;
+    }
+
+    .btn-cyan:hover {
+      background: #31d6f5;
+      border-color: #31d6f5;
+      color: #05121a;
+    }
+
+    .btn-outline-soft {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #f1f7ff;
+    }
+
+    .btn-outline-soft:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.30);
+    }
+
+    .cta-box {
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer-note {
+      color: #8ca4bb;
+      font-size: 0.92rem;
+      text-align: center;
+      padding: 2rem 0 3rem;
+    }
+
+    @media (max-width: 767.98px) {
+      .timeline-wrapper {
+        padding-left: 1.8rem;
+      }
+
+      .phase-marker {
+        left: -2.9rem;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+      }
+
+      .hero-trilha {
+        padding-top: 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="./nlp-triagem-inteligente-financeira.html">
+        NLP Triagem Financeira
+      </a>
+      <div class="d-flex gap-2">
+        <a href="./nlp-triagem-inteligente-financeira.html" class="btn btn-sm btn-outline-soft">
+          <i class="bi bi-arrow-left me-1"></i>Voltar ao Projeto
+        </a>
+        <a href="../projetos.html" class="btn btn-sm btn-outline-soft">
+          Catálogo
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-trilha">
+    <div class="container">
+      <span class="hero-badge">
+        <i class="bi bi-diagram-3"></i>
+        Jornada Evolutiva do Projeto
+      </span>
+
+      <h1 class="hero-title">Trilha dos Notebooks • evolução inspirada no CRISP-DM+</h1>
+
+      <p class="hero-subtitle">
+        Esta página organiza a leitura técnica do projeto como uma jornada progressiva:
+        começamos pela <strong>Etapa 0 do CRISP-DM+</strong>, com Ontologia, Business Language Model
+        e Clustering Semântico, avançamos pelas fases clássicas do CRISP-DM e fechamos com deployment,
+        monitoramento e empacotamento executivo para portfólio.
+      </p>
+
+      <div class="d-flex flex-wrap gap-3 mt-4">
+        <a href="#trilha-fases" class="btn btn-cyan btn-lg">
+          <i class="bi bi-signpost-split me-2"></i>Ver evolução completa
+        </a>
+        <a href="https://github.com/roberto-ssoares/nlp-triagem-inteligente-financeira" target="_blank" rel="noopener noreferrer" class="btn btn-outline-soft btn-lg">
+          <i class="bi bi-github me-2"></i>GitHub do Projeto
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="container pb-4">
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <span class="section-kicker">Leitura guiada</span>
+          <h2 class="section-title">Como navegar por esta trilha</h2>
+          <p class="section-text">
+            Em vez de abrir diretamente um único notebook, esta página apresenta a lógica do projeto
+            de forma estruturada. Cada bloco representa uma fase da solução e mostra o papel técnico
+            daquela etapa dentro da construção do case.
+          </p>
+
+          <div class="flow-pills">
+            <span class="flow-pill">Etapa 0 • Ontologia + BLM + Clustering</span>
+            <span class="flow-pill">Business Understanding</span>
+            <span class="flow-pill">Data Understanding</span>
+            <span class="flow-pill">Data Preparation</span>
+            <span class="flow-pill">Modeling</span>
+            <span class="flow-pill">Evaluation</span>
+            <span class="flow-pill">Deployment</span>
+            <span class="flow-pill">Portfolio Packaging</span>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="summary-card">
+            <div class="summary-row">
+              <div class="summary-number">08</div>
+              <div>
+                <h3 class="h6 fw-bold text-white mb-1">Notebooks publicados</h3>
+                <p class="mb-0 text-secondary">Fluxo completo do entendimento do problema até a conclusão executiva.</p>
+              </div>
+            </div>
+
+            <div class="summary-row">
+              <div class="summary-number">02</div>
+              <div>
+                <h3 class="h6 fw-bold text-white mb-1">Estratégias de modelagem</h3>
+                <p class="mb-0 text-secondary">Baseline clássico com TF-IDF + LogReg e experimento com transformer.</p>
+              </div>
+            </div>
+
+            <div class="summary-row">
+              <div class="summary-number">+</div>
+              <div>
+                <h3 class="h6 fw-bold text-white mb-1">Visão CRISP-DM+</h3>
+                <p class="mb-0 text-secondary">Ampliação do framework com camada semântica e leitura executiva de portfólio.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="trilha-fases" class="container py-4">
+      <span class="section-kicker">Roadmap do projeto</span>
+      <h2 class="section-title">Evolução do case ao longo das fases</h2>
+      <p class="section-text mb-0">
+        Cada etapa abaixo representa um avanço concreto da solução. A ideia é mostrar maturidade metodológica,
+        raciocínio de negócio e capacidade de transformar análise em produto de portfólio.
+      </p>
+
+      <div class="timeline-wrapper">
+
+        <div class="phase-item">
+          <div class="phase-marker">0</div>
+          <div class="phase-card">
+            <span class="phase-badge">CRISP-DM+ • Etapa 0</span>
+            <h3>Camada semântica do problema</h3>
+            <p>
+              Antes da exploração tradicional dos dados, o projeto se apoia em uma etapa ampliada do CRISP-DM:
+              <strong>Ontologia</strong>, <strong>Business Language Model</strong> e <strong>Clustering Semântico</strong>.
+              Essa fase ajuda a estruturar o vocabulário do domínio financeiro, reduzir ambiguidades conceituais
+              e alinhar a linguagem do negócio com a linguagem do modelo.
+            </p>
+            <div class="phase-note">
+              <div class="mini-label">Por que isso importa</div>
+              Essa leitura inicial fortalece a coerência do projeto e dá profundidade à narrativa metodológica.
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-marker">1</div>
+          <div class="phase-card">
+            <span class="phase-badge">Notebook 01</span>
+            <h3>Business Understanding</h3>
+            <p>
+              Aqui o problema é traduzido em objetivo analítico. O foco é entender por que a triagem inteligente
+              de perguntas financeiras gera valor operacional, quais são os critérios de sucesso e como o projeto
+              será avaliado do ponto de vista técnico e de negócio.
+            </p>
+            <div class="phase-note">
+              <div class="mini-label">Leitura da fase</div>
+              Esta etapa estabelece contexto, escopo, premissas, stakeholders e direção estratégica.
+            </div>
+            <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_1-business-understanding.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              Abrir notebook 01
+            </a>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-marker">2</div>
+          <div class="phase-card">
+            <span class="phase-badge">Notebook 02</span>
+            <h3>Data Understanding</h3>
+            <p>
+              Nesta fase o dataset é inspecionado em profundidade: estrutura, colunas, distribuição de classes,
+              volume, sinais de desbalanceamento e características textuais. O objetivo é entender se os dados
+              sustentam bem a tarefa de classificação multiclasses.
+            </p>
+            <div class="phase-note">
+              <div class="mini-label">Leitura da fase</div>
+              É o momento de enxergar os dados como ativo do projeto, não apenas como insumo técnico.
+            </div>
+            <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_2-data-understanding.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              Abrir notebook 02
+            </a>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-marker">3</div>
+          <div class="phase-card">
+            <span class="phase-badge">Notebook 03</span>
+            <h3>Data Preparation</h3>
+            <p>
+              Depois de compreender a base, o projeto entra na preparação: limpeza textual, normalização,
+              padronização, revisão de rótulos e organização do dataset para a primeira versão dos modelos.
+              Aqui nasce a base utilizável para a modelagem supervisionada.
+            </p>
+            <div class="phase-note">
+              <div class="mini-label">Leitura da fase</div>
+              Essa etapa transforma dados brutos em dados consistentes para aprendizado de máquina.
+            </div>
+            <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_3-data_preparation__text-cleaning-labeling.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              Abrir notebook 03
+            </a>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-marker">4</div>
+          <div class="phase-card">
+            <span class="phase-badge">Notebook 04</span>
+            <h3>Modeling • Baseline clássico</h3>
+            <p>
+              O baseline com <strong>TF-IDF + Logistic Regression</strong> oferece um ponto de partida sólido,
+              interpretável e eficiente. Ele mostra como um pipeline tradicional de NLP pode entregar valor
+              real e servir como referência para comparações futuras.
+            </p>
+            <div class="phase-note">
+              <div class="mini-label">Leitura da fase</div>
+              O baseline é essencial porque cria uma régua técnica para medir o ganho de abordagens mais sofisticadas.
+            </div>
+            <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_4-modeling__baseline-tfidf-logreg.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              Abrir notebook 04
+            </a>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-marker">5</div>
+          <div class="phase-card">
+            <span class="phase-badge">Notebook 05</span>
+            <h3>Modeling • Abordagem avançada com Transformer</h3>
+            <p>
+              A etapa seguinte amplia o projeto com uma arquitetura baseada em transformer. O objetivo aqui não é
+              apenas buscar desempenho, mas também demonstrar maturidade técnica, comparação metodológica e visão
+              de evolução do pipeline de NLP.
+            </p>
+            <div class="phase-note">
+              <div class="mini-label">Leitura da fase</div>
+              Essa fase mostra profundidade analítica e capacidade de comparar soluções simples e avançadas.
+            </div>
+            <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_5-modeling__tranformer-text-classifier.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              Abrir notebook 05
+            </a>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-marker">6</div>
+          <div class="phase-card">
+            <span class="phase-badge">Notebook 06</span>
+            <h3>Evaluation &amp; Business Interpretation</h3>
+            <p>
+              Aqui os resultados são avaliados sob duas perspectivas: a técnica, com métricas e comparação entre
+              modelos, e a de negócio, com interpretação prática do que a solução representa em triagem,
+              priorização e ganho operacional.
+            </p>
+            <div class="phase-note">
+              <div class="mini-label">Leitura da fase</div>
+              Não basta ter métrica; é preciso traduzir o resultado em impacto compreensível para o negócio.
+            </div>
+            <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_6-evaluation-business-interpretation.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              Abrir notebook 06
+            </a>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-marker">7</div>
+          <div class="phase-card">
+            <span class="phase-badge">Notebook 07</span>
+            <h3>Deployment &amp; Monitoring</h3>
+            <p>
+              O projeto avança do experimento para uma visão de produto. Nesta fase entram a API baseline,
+              o fluxo de inferência e os primeiros elementos de monitoramento, mostrando preocupação com uso
+              real, operação e sustentação da solução.
+            </p>
+            <div class="phase-note">
+              <div class="mini-label">Leitura da fase</div>
+              Essa transição evidencia que o projeto não termina no notebook; ele caminha em direção à produção.
+            </div>
+            <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_7-deployment__monitoring-baseline-api.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              Abrir notebook 07
+            </a>
+          </div>
+        </div>
+
+        <div class="phase-item">
+          <div class="phase-marker">8</div>
+          <div class="phase-card">
+            <span class="phase-badge">Notebook 08</span>
+            <h3>Executive Conclusion &amp; Portfolio Packaging</h3>
+            <p>
+              A jornada termina com síntese executiva, recomendações, narrativa final do case e empacotamento
+              profissional para portfólio. É a fase em que o projeto deixa de ser apenas técnico e passa a ser
+              também uma peça de posicionamento profissional.
+            </p>
+            <div class="phase-note">
+              <div class="mini-label">Leitura da fase</div>
+              Fechar bem o case é tão importante quanto modelar bem: é isso que transforma trabalho em portfólio.
+            </div>
+            <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_8-executive-conclusion__portfolio-packaging.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">
+              Abrir notebook 08
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="container py-4">
+      <div class="cta-box">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-8">
+            <span class="section-kicker">Leitura recomendada</span>
+            <h2 class="section-title mb-2">Sugestão de navegação</h2>
+            <p class="section-text mb-0">
+              Para uma experiência mais forte de portfólio, o ideal é seguir os notebooks em ordem.
+              Isso ajuda o recrutador ou gestor a perceber método, progressão e clareza de raciocínio.
+            </p>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a href="https://roberto-ssoares.github.io/meu-portfolio-notebooks-html/projects/08_1-business-understanding.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan btn-lg">
+              Começar pelo Notebook 01
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <p class="footer-note">
+        Página-hub da trilha do projeto • NLP Triagem Inteligente Financeira
+      </p>
+    </div>
+  </main>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+</body>
+</html>
+
