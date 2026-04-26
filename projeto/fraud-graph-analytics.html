@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fraud Graph Analytics — Prevenção a Fraudes Transacionais com Knowledge Graph, Regras Explicáveis e Graph Analytics.">
+  <meta name="author" content="Roberto dos Santos Soares">
+
+  <title>Fraud Graph Analytics | Portfolio</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: #07111f;
+      --bg-secondary: #0b1f35;
+      --bg-card: rgba(255, 255, 255, 0.075);
+      --bg-card-strong: rgba(255, 255, 255, 0.11);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted-custom: #94a3b8;
+      --brand-cyan: #38bdf8;
+      --brand-blue: #2563eb;
+      --brand-purple: #8b5cf6;
+      --brand-green: #22c55e;
+      --brand-orange: #f97316;
+      --border-soft: rgba(255, 255, 255, 0.14);
+      --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.35);
+      --radius-xl: 1.4rem;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 32rem),
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.24), transparent 34rem),
+        linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+      color: var(--text-primary);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .navbar {
+      background: rgba(7, 17, 31, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .navbar-brand,
+    .nav-link {
+      color: var(--text-primary) !important;
+    }
+
+    .nav-link {
+      font-size: 0.94rem;
+      color: var(--text-secondary) !important;
+    }
+
+    .nav-link:hover {
+      color: var(--brand-cyan) !important;
+    }
+
+    .hero {
+      position: relative;
+      padding: 8rem 0 5rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 92%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.08);
+      color: #bae6fd;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 5.25rem);
+      line-height: 0.95;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #a78bfa, #22c55e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-lead {
+      max-width: 860px;
+      color: var(--text-secondary);
+      font-size: 1.18rem;
+      line-height: 1.75;
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(16px);
+    }
+
+    .glass-card-strong {
+      background: var(--bg-card-strong);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+    }
+
+    .section-block {
+      padding: 5rem 0;
+    }
+
+    .section-title {
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+    }
+
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 860px;
+    }
+
+    .text-soft {
+      color: var(--text-secondary);
+    }
+
+    .text-muted-custom {
+      color: var(--text-muted-custom);
+    }
+
+    .metric-card {
+      min-height: 150px;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .metric-card:hover,
+    .feature-card:hover,
+    .journey-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.42);
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .metric-value {
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .metric-label {
+      color: var(--text-muted-custom);
+      font-size: 0.92rem;
+    }
+
+    .badge-custom {
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .icon-bubble {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.24), rgba(139, 92, 246, 0.18));
+      color: #e0f2fe;
+      font-size: 1.35rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .timeline {
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 18px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--brand-cyan), var(--brand-purple), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 3.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 0.25rem;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #0f172a;
+      border: 1px solid rgba(56, 189, 248, 0.6);
+      color: var(--brand-cyan);
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    .code-panel {
+      background: rgba(2, 6, 23, 0.72);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 1.2rem;
+      color: #dbeafe;
+      padding: 1.3rem;
+      overflow-x: auto;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .code-panel code,
+    .code-panel pre {
+      color: #dbeafe;
+      margin: 0;
+      font-size: 0.92rem;
+    }
+
+    .table-dark-custom {
+      --bs-table-bg: transparent;
+      --bs-table-color: var(--text-secondary);
+      --bs-table-border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .table-dark-custom th {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    .cta-box {
+      background:
+        linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(139, 92, 246, 0.16)),
+        rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 1.6rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-gradient {
+      border: 0;
+      color: #fff;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--brand-blue), var(--brand-purple));
+      box-shadow: 0 16px 34px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-gradient:hover {
+      color: #fff;
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-soft {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .btn-outline-soft:hover {
+      color: #fff;
+      border-color: rgba(56, 189, 248, 0.55);
+      background: rgba(56, 189, 248, 0.13);
+    }
+
+    .footer {
+      border-top: 1px solid var(--border-soft);
+      background: rgba(2, 6, 23, 0.45);
+      color: var(--text-muted-custom);
+    }
+
+    .anchor-offset {
+      scroll-margin-top: 96px;
+    }
+
+    @media (max-width: 991.98px) {
+      .hero {
+        padding-top: 6.5rem;
+      }
+
+      .timeline::before {
+        left: 16px;
+      }
+
+      .timeline-dot {
+        width: 34px;
+        height: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="../index.html">
+        <i class="bi bi-diagram-3 me-2 text-info"></i>Roberto Soares | Portfolio
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#overview">Visão Geral</a></li>
+          <li class="nav-item"><a class="nav-link" href="#architecture">Arquitetura</a></li>
+          <li class="nav-item"><a class="nav-link" href="#graph">Graph Analytics</a></li>
+          <li class="nav-item"><a class="nav-link" href="#score">Score</a></li>
+          <li class="nav-item"><a class="nav-link" href="#notebooks">Notebooks</a></li>
+          <li class="nav-item"><a class="nav-link" href="#links">Links</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-content">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-8">
+          <div class="eyebrow mb-4">
+            <i class="bi bi-shield-lock"></i>
+            Data Science • Fraud Analytics • Knowledge Graph
+          </div>
+
+          <h1 class="hero-title mb-4">
+            Fraud Graph <span class="hero-gradient-text">Analytics</span>
+          </h1>
+
+          <p class="hero-lead mb-4">
+            MVP de prevenção a fraudes transacionais combinando <strong>regras explicáveis</strong>,
+            <strong>Knowledge Graph</strong>, <strong>algoritmos de grafo</strong> e um
+            <strong>score final de risco interpretável</strong> para priorização investigativa.
+          </p>
+
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <span class="badge rounded-pill badge-custom px-3 py-2">CRISP-DM+</span>
+            <span class="badge rounded-pill badge-custom px-3 py-2">Synthetic Data</span>
+            <span class="badge rounded-pill badge-custom px-3 py-2">Rules Engine</span>
+            <span class="badge rounded-pill badge-custom px-3 py-2">Neo4j / Cypher</span>
+            <span class="badge rounded-pill badge-custom px-3 py-2">NetworkX</span>
+            <span class="badge rounded-pill badge-custom px-3 py-2">Explainability</span>
+          </div>
+
+          <div class="d-flex flex-wrap gap-3">
+            <a class="btn btn-gradient btn-lg px-4" href="https://github.com/roberto-ssoares/Data-Science/tree/main/fraud-graph-analytics" target="_blank" rel="noopener">
+              <i class="bi bi-github me-2"></i>Ver no GitHub
+            </a>
+            <a class="btn btn-outline-soft btn-lg px-4" href="#notebooks">
+              <i class="bi bi-journal-code me-2"></i>Ver Notebooks
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="glass-card-strong p-4">
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div class="icon-bubble"><i class="bi bi-graph-up-arrow"></i></div>
+              <div>
+                <h2 class="h5 mb-1">Case de Portfólio Sênior</h2>
+                <p class="text-muted-custom mb-0">Fraude, risco, grafos e explicabilidade.</p>
+              </div>
+            </div>
+
+            <div class="row g-3">
+              <div class="col-6">
+                <div class="glass-card p-3 h-100">
+                  <div class="metric-value">08</div>
+                  <div class="metric-label">notebooks</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="glass-card p-3 h-100">
+                  <div class="metric-value">10</div>
+                  <div class="metric-label">regras</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="glass-card p-3 h-100">
+                  <div class="metric-value">KG</div>
+                  <div class="metric-label">modeling</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="glass-card p-3 h-100">
+                  <div class="metric-value">GDS</div>
+                  <div class="metric-label">ready</div>
+                </div>
+              </div>
+            </div>
+
+            <hr class="border-secondary opacity-25 my-4">
+
+            <p class="text-soft mb-0">
+              O projeto usa dados sintéticos e foi estruturado para ser seguro, reprodutível e apresentável em GitHub, entrevistas e LinkedIn.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="overview" class="section-block anchor-offset">
+      <div class="container">
+        <div class="row g-4 align-items-start">
+          <div class="col-lg-5">
+            <h2 class="section-title mb-3">Problema de negócio</h2>
+            <p class="section-subtitle">
+              Fraudes transacionais raramente aparecem apenas como eventos isolados. O risco geralmente emerge de relações indiretas entre contas, dispositivos, beneficiários, IPs e padrões de movimentação.
+            </p>
+          </div>
+          <div class="col-lg-7">
+            <div class="glass-card p-4 p-lg-5">
+              <h3 class="h4 mb-4">Hipótese central do projeto</h3>
+              <p class="text-soft fs-5 mb-4">
+                Uma abordagem antifraude fica mais forte quando combina sinais transacionais explicáveis com contexto relacional de grafo.
+              </p>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="feature-card glass-card p-4 h-100">
+                    <div class="icon-bubble mb-3"><i class="bi bi-list-check"></i></div>
+                    <h4 class="h5">Regras explicáveis</h4>
+                    <p class="text-muted-custom mb-0">Capturam sinais claros como alto valor, rajadas, conta nova e dispositivo compartilhado.</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="feature-card glass-card p-4 h-100">
+                    <div class="icon-bubble mb-3"><i class="bi bi-diagram-3"></i></div>
+                    <h4 class="h5">Graph Analytics</h4>
+                    <p class="text-muted-custom mb-0">Revela conexões indiretas, comunidades suspeitas e entidades estruturalmente relevantes.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block pt-0">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="metric-card glass-card p-4 h-100">
+              <div class="metric-value">80k</div>
+              <div class="metric-label mb-2">transações sintéticas</div>
+              <p class="text-muted-custom mb-0">Base simulada para análise, regras e grafo.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="metric-card glass-card p-4 h-100">
+              <div class="metric-value">6</div>
+              <div class="metric-label mb-2">cenários de fraude</div>
+              <p class="text-muted-custom mb-0">Dispositivo compartilhado, beneficiário concentrador, rajada e outros.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="metric-card glass-card p-4 h-100">
+              <div class="metric-value">10</div>
+              <div class="metric-label mb-2">regras antifraude</div>
+              <p class="text-muted-custom mb-0">Catálogo de regras com severidade, pontuação e racional.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="metric-card glass-card p-4 h-100">
+              <div class="metric-value">100</div>
+              <div class="metric-label mb-2">score final</div>
+              <p class="text-muted-custom mb-0">Combina regras, risco de entidade e risco de comunidade.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture" class="section-block anchor-offset">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-9">
+            <h2 class="section-title mb-3">Arquitetura analítica</h2>
+            <p class="section-subtitle">
+              O MVP foi organizado como uma jornada de dados completa: entendimento de domínio, geração de dados sintéticos, EDA, regras, grafo, algoritmos estruturais, score final e empacotamento executivo.
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-5">
+            <div class="glass-card p-4 h-100">
+              <h3 class="h4 mb-4">Pipeline conceitual</h3>
+              <div class="code-panel">
+<pre><code>Synthetic Data
+     ↓
+EDA Transacional
+     ↓
+Rules Engine Antifraud
+     ↓
+Knowledge Graph Modeling
+     ↓
+Graph Algorithms
+     ↓
+Fraud Risk Score
+     ↓
+Explainability & Portfolio</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="table-responsive glass-card p-3 h-100">
+              <table class="table table-dark-custom align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th>Camada</th>
+                    <th>Descrição</th>
+                    <th>Saída</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CRISP-DM+</td>
+                    <td>Ontologia, BLM, taxonomia e hipóteses investigativas.</td>
+                    <td>Base conceitual</td>
+                  </tr>
+                  <tr>
+                    <td>Synthetic Data</td>
+                    <td>Clientes, contas, transações, dispositivos, IPs e beneficiários.</td>
+                    <td>Parquets recriáveis</td>
+                  </tr>
+                  <tr>
+                    <td>Rules Engine</td>
+                    <td>Regras nomeadas com severidade, pontos e explicação.</td>
+                    <td>Rule Score</td>
+                  </tr>
+                  <tr>
+                    <td>Knowledge Graph</td>
+                    <td>Modelagem de nós e relações compatíveis com Neo4j.</td>
+                    <td>Cypher + CSVs</td>
+                  </tr>
+                  <tr>
+                    <td>Graph Algorithms</td>
+                    <td>Centralidade, comunidades, PageRank e Betweenness.</td>
+                    <td>Graph Risk</td>
+                  </tr>
+                  <tr>
+                    <td>Explainability</td>
+                    <td>Explicação textual por transação priorizada.</td>
+                    <td>Final Alert</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block pt-0">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="glass-card p-4 p-lg-5 h-100">
+              <div class="icon-bubble mb-4"><i class="bi bi-braces"></i></div>
+              <h3 class="h4 mb-3">CRISP-DM+ como diferencial</h3>
+              <p class="text-soft mb-4">
+                O projeto começa com uma etapa zero de entendimento semântico do domínio, conectando negócio e modelagem antes da parte técnica.
+              </p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="badge badge-custom rounded-pill px-3 py-2">Ontologia</span>
+                <span class="badge badge-custom rounded-pill px-3 py-2">BLM</span>
+                <span class="badge badge-custom rounded-pill px-3 py-2">Taxonomia</span>
+                <span class="badge badge-custom rounded-pill px-3 py-2">Hipóteses</span>
+                <span class="badge badge-custom rounded-pill px-3 py-2">Knowledge Graph</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="glass-card p-4 p-lg-5 h-100">
+              <div class="icon-bubble mb-4"><i class="bi bi-shield-exclamation"></i></div>
+              <h3 class="h4 mb-3">Cenários simulados</h3>
+              <p class="text-soft mb-4">
+                A base sintética foi desenhada para simular padrões típicos de investigação antifraude, sem uso de dados reais ou sensíveis.
+              </p>
+              <div class="row g-2">
+                <div class="col-sm-6"><span class="badge badge-custom w-100 py-2">shared_device_ring</span></div>
+                <div class="col-sm-6"><span class="badge badge-custom w-100 py-2">beneficiary_concentrator</span></div>
+                <div class="col-sm-6"><span class="badge badge-custom w-100 py-2">new_account_high_value</span></div>
+                <div class="col-sm-6"><span class="badge badge-custom w-100 py-2">burst_transactions</span></div>
+                <div class="col-sm-6"><span class="badge badge-custom w-100 py-2">bridge_account</span></div>
+                <div class="col-sm-6"><span class="badge badge-custom w-100 py-2">coordinated_network</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="graph" class="section-block anchor-offset">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-9">
+            <h2 class="section-title mb-3">Knowledge Graph e Graph Analytics</h2>
+            <p class="section-subtitle">
+              O grafo conecta contas, transações, dispositivos, IPs, beneficiários, cartões e regras antifraude, permitindo investigar relações indiretas difíceis de observar em tabelas tradicionais.
+            </p>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="glass-card p-4 h-100">
+              <h3 class="h4 mb-4">Modelo conceitual</h3>
+              <div class="code-panel">
+<pre><code>(:Cliente)-[:POSSUI]->(:Conta)
+(:Conta)-[:REALIZOU]->(:Transacao)
+(:Transacao)-[:ENVIOU_PARA]->(:Beneficiario)
+(:Transacao)-[:USOU]->(:Dispositivo)
+(:Transacao)-[:ORIGINOU_DE]->(:IP)
+(:Transacao)-[:UTILIZOU]->(:Cartao)
+(:Transacao)-[:ACIONOU]->(:Regra)</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="glass-card p-4 h-100">
+              <h3 class="h4 mb-4">Algoritmos aplicados</h3>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <div class="feature-card glass-card p-3 h-100">
+                    <strong>Degree</strong>
+                    <p class="text-muted-custom small mb-0">Entidades muito conectadas.</p>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="feature-card glass-card p-3 h-100">
+                    <strong>PageRank</strong>
+                    <p class="text-muted-custom small mb-0">Relevância estrutural.</p>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="feature-card glass-card p-3 h-100">
+                    <strong>Communities</strong>
+                    <p class="text-muted-custom small mb-0">Grupos suspeitos.</p>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="feature-card glass-card p-3 h-100">
+                    <strong>Betweenness</strong>
+                    <p class="text-muted-custom small mb-0">Possíveis contas ponte.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="score" class="section-block anchor-offset">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5">
+            <h2 class="section-title mb-3">Fraud Risk Score</h2>
+            <p class="section-subtitle">
+              O score final combina o risco transacional das regras com o risco estrutural das entidades conectadas à transação.
+            </p>
+          </div>
+          <div class="col-lg-7">
+            <div class="glass-card p-4 p-lg-5">
+              <h3 class="h4 mb-4">Fórmula conceitual</h3>
+              <div class="code-panel mb-4">
+<pre><code>fraud_risk_score =
+    0.45  * rule_score
+  + 0.20  * account_graph_risk_score
+  + 0.125 * device_graph_risk_score
+  + 0.125 * beneficiary_graph_risk_score
+  + 0.05  * ip_graph_risk_score
+  + 0.05  * max_community_risk_score</code></pre>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-sm-6 col-lg-3">
+                  <div class="glass-card p-3 text-center h-100">
+                    <div class="fw-bold text-success">Baixo</div>
+                    <small class="text-muted-custom">score &lt; 35</small>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="glass-card p-3 text-center h-100">
+                    <div class="fw-bold text-info">Médio</div>
+                    <small class="text-muted-custom">35 a 59</small>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="glass-card p-3 text-center h-100">
+                    <div class="fw-bold text-warning">Alto</div>
+                    <small class="text-muted-custom">60 a 79</small>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                  <div class="glass-card p-3 text-center h-100">
+                    <div class="fw-bold text-danger">Crítico</div>
+                    <small class="text-muted-custom">score ≥ 80</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block pt-0">
+      <div class="container">
+        <div class="glass-card p-4 p-lg-5">
+          <div class="row g-4 align-items-start">
+            <div class="col-lg-4">
+              <div class="icon-bubble mb-4"><i class="bi bi-chat-square-text"></i></div>
+              <h2 class="h3 fw-bold">Explicabilidade</h2>
+              <p class="text-soft mb-0">
+                Cada alerta recebe uma justificativa textual combinando regras acionadas e sinais estruturais de grafo.
+              </p>
+            </div>
+            <div class="col-lg-8">
+              <div class="code-panel">
+<pre><code>Score final 82.4/100 — risco crítico.
+Score de regras: 75.0/100.
+Regras acionadas: dispositivo compartilhado; beneficiário concentrador; rajada transacional horária.
+Sinais de grafo: dispositivo com alto risco estrutural; comunidade associada com alto risco.</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="notebooks" class="section-block anchor-offset">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-lg-9">
+            <h2 class="section-title mb-3">Jornada dos notebooks</h2>
+            <p class="section-subtitle">
+              O projeto foi construído em uma sequência reprodutível de notebooks, do entendimento do domínio ao empacotamento executivo.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot">00</div>
+            <div class="journey-card glass-card p-4">
+              <h3 class="h5 mb-2">Domain Understanding CRISP-DM+</h3>
+              <p class="text-muted-custom mb-2">Ontologia, Business Language Model, taxonomia de fraudes e desenho inicial do Knowledge Graph.</p>
+              <a class="link-info text-decoration-none" target="_blank" rel="noopener" href="https://github.com/roberto-ssoares/Data-Science/blob/main/fraud-graph-analytics/notebooks/00_domain_understanding_crisp_dm_plus.ipynb">Abrir notebook <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">01</div>
+            <div class="journey-card glass-card p-4">
+              <h3 class="h5 mb-2">Generate Synthetic Transactions</h3>
+              <p class="text-muted-custom mb-2">Geração de dados sintéticos com clientes, contas, transações, dispositivos, IPs e beneficiários.</p>
+              <a class="link-info text-decoration-none" target="_blank" rel="noopener" href="https://github.com/roberto-ssoares/Data-Science/blob/main/fraud-graph-analytics/notebooks/01_generate_synthetic_transactions.ipynb">Abrir notebook <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">02</div>
+            <div class="journey-card glass-card p-4">
+              <h3 class="h5 mb-2">EDA Transactional Fraud</h3>
+              <p class="text-muted-custom mb-2">Análise exploratória dos padrões transacionais e identificação de sinais candidatos para regras antifraude.</p>
+              <a class="link-info text-decoration-none" target="_blank" rel="noopener" href="https://github.com/roberto-ssoares/Data-Science/blob/main/fraud-graph-analytics/notebooks/02_eda_transactional_fraud.ipynb">Abrir notebook <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">03</div>
+            <div class="journey-card glass-card p-4">
+              <h3 class="h5 mb-2">Rules Engine Antifraud</h3>
+              <p class="text-muted-custom mb-2">Motor de regras explicáveis com severidade, pontuação, score e alertas priorizados.</p>
+              <a class="link-info text-decoration-none" target="_blank" rel="noopener" href="https://github.com/roberto-ssoares/Data-Science/blob/main/fraud-graph-analytics/notebooks/03_rules_engine_antifraud.ipynb">Abrir notebook <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">04</div>
+            <div class="journey-card glass-card p-4">
+              <h3 class="h5 mb-2">Graph Modeling Neo4j</h3>
+              <p class="text-muted-custom mb-2">Modelagem de nós e relacionamentos, scripts Cypher e manifesto de carga para Neo4j.</p>
+              <a class="link-info text-decoration-none" target="_blank" rel="noopener" href="https://github.com/roberto-ssoares/Data-Science/blob/main/fraud-graph-analytics/notebooks/04_graph_modeling_neo4j.ipynb">Abrir notebook <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">05</div>
+            <div class="journey-card glass-card p-4">
+              <h3 class="h5 mb-2">Graph Algorithms Fraud Detection</h3>
+              <p class="text-muted-custom mb-2">Degree, PageRank, comunidades, Betweenness aproximado e ranking estrutural de entidades.</p>
+              <a class="link-info text-decoration-none" target="_blank" rel="noopener" href="https://github.com/roberto-ssoares/Data-Science/blob/main/fraud-graph-analytics/notebooks/05_graph_algorithms_fraud_detection.ipynb">Abrir notebook <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-dot">06</div>
+            <div class="journey-card glass-card p-4">
+              <h3 class="h5 mb-2">Fraud Risk Score Explainability</h3>
+              <p class="text-muted-custom mb-2">Score final combinando regras, risco de entidades, risco de comunidades e explicabilidade textual.</p>
+              <a class="link-info text-decoration-none" target="_blank" rel="noopener" href="https://github.com/roberto-ssoares/Data-Science/blob/main/fraud-graph-analytics/notebooks/06_fraud_risk_score_explainability.ipynb">Abrir notebook <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+
+          <div class="timeline-item mb-0">
+            <div class="timeline-dot">07</div>
+            <div class="journey-card glass-card p-4">
+              <h3 class="h5 mb-2">Executive Conclusion & Portfolio Packaging</h3>
+              <p class="text-muted-custom mb-2">Conclusão executiva, valor de negócio, limitações, ética, próximos passos e empacotamento.</p>
+              <a class="link-info text-decoration-none" target="_blank" rel="noopener" href="https://github.com/roberto-ssoares/Data-Science/blob/main/fraud-graph-analytics/notebooks/07_executive_conclusion_portfolio.ipynb">Abrir notebook <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block pt-0">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="feature-card glass-card p-4 h-100">
+              <div class="icon-bubble mb-4"><i class="bi bi-bullseye"></i></div>
+              <h3 class="h5">Valor para fraude</h3>
+              <p class="text-muted-custom mb-0">Priorização de transações, contas, dispositivos, IPs e beneficiários com risco transacional e relacional.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="feature-card glass-card p-4 h-100">
+              <div class="icon-bubble mb-4"><i class="bi bi-cpu"></i></div>
+              <h3 class="h5">Valor técnico</h3>
+              <p class="text-muted-custom mb-0">Pipeline reprodutível com dados sintéticos, regras, grafos, Cypher, algoritmos e score final.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="feature-card glass-card p-4 h-100">
+              <div class="icon-bubble mb-4"><i class="bi bi-person-workspace"></i></div>
+              <h3 class="h5">Valor para portfólio</h3>
+              <p class="text-muted-custom mb-0">Case completo para demonstrar senioridade em dados, risco, fraude, Graph Analytics e explicabilidade.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="links" class="section-block anchor-offset">
+      <div class="container">
+        <div class="cta-box p-4 p-lg-5">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-8">
+              <h2 class="section-title mb-3">Acesse o projeto completo</h2>
+              <p class="section-subtitle mb-0">
+                O repositório contém notebooks, documentação, scripts Cypher, relatórios e artefatos versionáveis do MVP.
+              </p>
+            </div>
+            <div class="col-lg-4">
+              <div class="d-grid gap-3">
+                <a class="btn btn-gradient btn-lg" href="https://github.com/roberto-ssoares/Data-Science/tree/main/fraud-graph-analytics" target="_blank" rel="noopener">
+                  <i class="bi bi-github me-2"></i>Repositório no GitHub
+                </a>
+                <a class="btn btn-outline-soft btn-lg" href="../index.html">
+                  <i class="bi bi-arrow-left me-2"></i>Voltar ao Portfólio
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer py-4">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-md-8">
+          <p class="mb-0">
+            <strong class="text-light">Fraud Graph Analytics</strong> — Projeto de portfólio com dados sintéticos, regras explicáveis e Graph Analytics.
+          </p>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <a class="text-info text-decoration-none me-3" href="https://github.com/roberto-ssoares" target="_blank" rel="noopener">GitHub</a>
+          <a class="text-info text-decoration-none" href="https://www.linkedin.com/in/roberto-dos-santos-soares/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
